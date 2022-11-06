@@ -9,49 +9,45 @@ int main(){
 	
 	setlocale(LC_ALL, "PORTUGUESE"); //Setando os caracteres para o padrão português
 	
-	int id[1000], i, j, opc, excluir, Idexcluir[1000], Ideditar[1000], editar;
-	char nome[1000][50], email[1000][50], sexo[1000][15], endereco[1000][100], emailb[1000][50];
-    double altura[1000];
-    int vacina[1000];
-	
+	int id[1000], id_b[1000],i, j, opc, excluir, Idexcluir[1000], Ideditar[1000], editar;
+	char nome[1000][50], email[1000][50], sexo[1000][15], endereco[1000][100], emailb[1000][50], nome_b[1000][50], email_b[1000][50], sexo_b[1000][15], endereco_b[1000][100];
+    	double altura[1000], altura_b[1000];
+    	int vacina[1000], vacina_b[1000];
+    
 	menu:
-    printf("PROJETO 1: VETORES\n\n1. Incluir um usuário\n2. Editar um usuário\n3. Excluir um usuário\n4. Buscar um usuário pelo e-mail\n5. Exibir todos os usuários cadastrados\n6. Fazer backup de todos os usuários cadastrados\n7. Restaurar dados\n\nDigite a opção desejada: ");
-    fflush(stdin);
-    scanf("%d", &opc);
-    system("cls");	
+    	printf("PROJETO 1: VETORES\n\n1. Incluir um usuário\n2. Editar um usuário\n3. Excluir um usuário\n4. Buscar um usuário pelo e-mail\n5. Exibir todos os usuários cadastrados\n6. Fazer backup de todos os usuários cadastrados\n7. Restaurar dados\n\nDigite a opção desejada: ");
+    	fflush(stdin);
+    	scanf("%d", &opc);
+    	system("cls");	
 	
 	switch(opc){
 		case 1: //CADASTRO (JOAO)
-    
-    		printf("Digite a quantidade de usuários que serão cadastrados: ");
+    			printf("Digite a quantidade de usuários que serão cadastrados: ");
 			fflush(stdin);
-    		scanf("%d", &j);
-    		system("cls");
+    			scanf("%d", &j);
+    			system("cls");
     		
-    		do{	//VALIDAÇÃO DE QUANTIDADE DE USUÁRIOS A SEREM CADASTRADOS
+    			do{	//VALIDAÇÃO DE QUANTIDADE DE USUÁRIOS A SEREM CADASTRADOS
 				if(j > 1000 || j < 0) {
 	    			printf("AVISO: Por favor, digite uma quantidade válida!\nQuantidade: ");
 	    			fflush(stdin);
 	    			scanf("%d", &j);
-	    			system("cls");
-				}
-			} while(j > 1000 || j < 0);
+	    			system("cls");}
+			} while (j > 1000 || j < 0);
     	
-    		for(i=0;i<j;i++){
-    			
-    			//ID
+    			for(i=0;i<j;i++){	//ID
 				printf("# Usuário (%d) esse será seu ID: ", i+1);
 				srand(time(NULL));
 				id[i] = rand()%1000;
-    			printf("%d #\nDigite ok para prosseguir: ", id[i]); 
-    			scanf("%d", &id);
-    			system("cls");
+    				printf("%d #\nDigite 'OK' para prosseguir: ", id[i]); 
+    				scanf("%d", &id);
+    				system("cls");
     		
-	            //NOME
-	            printf("# INCLUIR UM USUÁRIO (USUÁRIO: %d, ID: %d)#\n\nNome: ", i+1, id[i]);
-	            fflush(stdin);
-	            fgets(nome[i], 50, stdin);
-	            system("cls");
+			    	//NOME
+			    	printf("# INCLUIR UM USUÁRIO (USUÁRIO: %d, ID: %d)#\n\nNome: ", i+1, id[i]);
+			    	fflush(stdin);
+			    	fgets(nome[i], 50, stdin);
+			    	system("cls");
 	
 	            //E-MAIL
 	            printf("# INCLUIR UM USUÁRIO (USUÁRIO: %d, ID: %d)#\n\nE-mail: ", i+1, id[i]);
@@ -359,29 +355,75 @@ int main(){
 				
 				if(vacina[i] == 1){
 					printf("Sim\n\n");
-				} else ("Não\n\n");
-				
+				} else if(vacina[i] == 0) {
+					printf("Não\n\n");
+				};
+	
 				}
 			
-			int set;
-				scanf("%d", &set);
+			printf("Digite 'OK' para prosseguir: "); 
+    			scanf("%d", &id);
 			goto menu;
 			break;
 			
-		case 6: //FAZER BACKUP ()
-		
-			goto menu;
+		case 6: //FAZER BACKUP (JOÃO)
+			printf("## BACKUP DE USUÁRIOS CADASTRADOS ##\n\n");
+			printf("1. Fazer backup\n0. Retornar ao menu\n\nDigite a opção desejada: ");
+			fflush(stdin);
+			int opc;
+			scanf("%d", &opc);
+			
+			if(opc == 1){
+				for(i=0;i<j;i++) {
+					strcpy(nome_b[i], nome[i]);
+					strcpy(email_b[i], email[i]);
+					strcpy(endereco_b[i], endereco[i]);
+					strcpy(sexo_b[i], sexo[i]);
+				
+					id_b[i] = id[i];
+					altura_b[i] = altura[i];
+					vacina_b[i] = vacina[i];
+				}
+
+				printf("\nBackup feito com sucesso!\n\n");
+				
+			} else {
+				system("cls");
+				goto menu;
+			}
+			
 			break;
 			
-		case 7: //RESTAURAR DADOS ()
-		
-			goto menu;
+		case 7: //RESTAURAR DADOS (JOÃO)
+			printf("## RESTAURAÇÃO DE DADOS ##\n\n");
+			printf("1. Restaurar dados\n0. Retornar ao menu\n\nDigite a opção desejada: ");
+			fflush(stdin);
+			scanf("%d", &opc);
+			
+			if(opc == 1){
+				for(i=0;i<j;i++) {
+					strcpy(nome_b[i], nome[i]);
+					strcpy(email_b[i], email[i]);
+					strcpy(endereco_b[i], endereco[i]);
+					strcpy(sexo_b[i], sexo[i]);
+				
+					id_b[i] = id[i];
+					altura_b[i] = altura[i];
+					vacina_b[i] = vacina[i];
+				}
+
+				printf("\nBackup feito com sucesso!\n\n");
+				
+			} else {
+				system("cls");
+				goto menu;
+			}
 			break;
 			
 		default:
-			
 			printf("# AVISO: Opção inválida! #\n\n");
 			goto menu;
+			
 	
 }
 	
