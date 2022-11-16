@@ -8,40 +8,39 @@
 int main(){
 	
 	setlocale(LC_ALL, "PORTUGUESE"); //Setando os caracteres para o padrão português
-	
-	int id[1000], id_b[1000],i, j, opc, excluir, Idexcluir[1000], Ideditar[1000], editar;
-	char nome[1000][50], email[1000][50], sexo[1000][15], endereco[1000][100], email_busca[100], nome_b[1000][50], email_b[1000][50], sexo_b[1000][15], endereco_b[1000][100];
-    double altura[1000], altura_b[1000];
-    int vacina[1000], vacina_b[1000];
+
+	int i, iEmail, iEdit, j, opc, id[1000], idBackup[1000], vacina[1000], vacinaBackup[1000];
+	char emailBusca[100], nome[1000][50], nomeBackup[1000][50], email[1000][50], emailBackup[1000][50], sexo[1000][15], sexoBackup[1000][15], endereco[1000][100], enderecoBackup[1000][100];
+	double altura[1000], alturaBackup[1000];
     
 	menu:
-    printf("PROJETO 1: VETORES\n\n1. Incluir um usuário\n2. Editar um usuário\n3. Excluir um usuário\n4. Buscar um usuário pelo e-mail\n5. Exibir todos os usuários cadastrados\n6. Fazer backup de todos os usuários cadastrados\n7. Restaurar dados\n\nDigite a opção desejada: ");
-    fflush(stdin);
-    scanf("%d", &opc);
-    system("cls");	
+    	printf("PROJETO 1: VETORES\n\n1. Incluir um usuário\n2. Editar um usuário\n3. Excluir um usuário\n4. Buscar um usuário pelo e-mail\n5. Exibir todos os usuários cadastrados\n6. Fazer backup de todos os usuários cadastrados\n7. Restaurar dados\n\nDigite a opção desejada: ");
+    	fflush(stdin);
+    	scanf("%d", &opc);
+    	system("cls");	
 	
 	switch(opc){
 		case 1: //#################### CADASTRO #################### (CHECADO)
     			printf("Digite a quantidade de usuários que serão cadastrados: ");
-				fflush(stdin);
+			fflush(stdin);
     			scanf("%d", &j);
     			system("cls");
     		
     			//VALIDAÇÃO DE QUANTIDADE DE USUÁRIOS A SEREM CADASTRADOS
     			do{	
-					if(j > 1000 || j < 0) {
-	    			printf("AVISO: Por favor, digite uma quantidade válida!\nQuantidade: ");
-	    			fflush(stdin);
-	    			scanf("%d", &j);
-	    			system("cls");}
+				if(j > 1000 || j < 0) {
+	    				printf("AVISO: Por favor, digite uma quantidade válida!\nQuantidade: ");
+	    				fflush(stdin);
+	    				scanf("%d", &j);
+	    				system("cls");}
 				} while (j > 1000 || j < 0);
     	
     			for(i=0;i<j;i++){
     				
     				//ID
-					printf("# Usuário (%d) esse será seu ID: ", i+1);
-					srand(time(NULL));
-					id[i] = rand()%1000;
+				printf("# Usuário (%d) esse será seu ID: ", i+1);
+				srand(time(NULL));
+				id[i] = rand()%1000;
     				printf("%d #\nDigite 'OK' para prosseguir: ", id[i]); 
     				scanf("%d", &id);
     				system("cls");
@@ -52,20 +51,20 @@ int main(){
 			    	fgets(nome[i], 50, stdin);
 			    	system("cls");
 	
-		            //E-MAIL
-		            printf("# INCLUIR UM USUÁRIO (USUÁRIO: %d, ID: %d)#\n\nE-mail: ", i+1, id[i]);
-		            fflush(stdin);
-		            fgets(email[i], 50, stdin);
-		            system("cls");
+		            	//E-MAIL
+		            	printf("# INCLUIR UM USUÁRIO (USUÁRIO: %d, ID: %d)#\n\nE-mail: ", i+1, id[i]);
+		            	fflush(stdin);
+		            	fgets(email[i], 50, stdin);
+		            	system("cls");
 
-		            //VALIDAÇÃO "@" NO E-MAIL
-		            do {
+		            	//VALIDAÇÃO "@" NO E-MAIL
+		            	do {
 			            if(strchr(email[i], '@') == 0) {
 			                printf("\nAVISO: E-mail inválido!\nDigite novamente: ");
 			                fflush(stdin);
 			                fgets(email[i], 50, stdin);
 			                system("cls");}
-		            } while (strchr(email[i], '@') == 0);
+		            	} while (strchr(email[i], '@') == 0);
 		            
 		            //SEXO
 		            printf("# INCLUIR UM USUÁRIO (USUÁRIO: %d, ID: %d)#\n\n", i+1, id[i]);
@@ -145,15 +144,15 @@ int main(){
 					printf("%d\t%d\t%s", i, id[i], nome[i]);
 				}
 				
-				int i_edit;
+				int iEdit;
 
 				printf("Índice a ser editado: ");
 				fflush(stdin);
-				scanf("%d", &i_edit);
+				scanf("%d", &iEdit);
 				system("cls");
 				
 				printf("## EDITAR UM USUÁRIO ##\n\n");
-				printf("Usuário selecionado: #%d\n\nID: %d\nNome: %sE-mail: %sEndereço: %sSexo: %s\nVacinou: %d\n\n", i_edit, id[i_edit], nome[i_edit], email[i_edit], endereco[i_edit], sexo[i_edit], vacina[i_edit] );
+				printf("Usuário selecionado: #%d\n\nID: %d\nNome: %sE-mail: %sEndereço: %sSexo: %s\nVacinou: %d\n\n", iEdit, id[iEdit], nome[iEdit], email[iEdit], endereco[iEdit], sexo[iEdit], vacina[iEdit] );
 				printf("##############################");
 				printf("\n\nSelecione o parâmetro a ser editado:\n");
 				printf("1. ID\n2. Nome\n3. E-mail\n4. Endereço\n5. Sexo\n6. Status de vacinação\n\n");
@@ -165,76 +164,76 @@ int main(){
 				switch(opc){
 					case 1: //ID
 						printf("## EDITAR UM USUÁRIO ##\n\n");
-						printf("Usuário selecionado: %s\n\n", nome[i_edit]);
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
 						
-						printf("ID antigo: %d\n", id[i_edit]);
+						printf("ID antigo: %d\n", id[iEdit]);
 						
 						printf("Digite o novo ID: ");
 						fflush(stdin);
-						scanf("%d", &id[i_edit]);
+						scanf("%d", &id[iEdit]);
 						
 						
 						break;
 						
 					case 2: //NOME
 						printf("## EDITAR UM USUÁRIO ##\n\n");
-						printf("Usuário selecionado: %s\n\n", nome[i_edit]);
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
 						
-						printf("Nome antigo: %s\n", nome[i_edit]);
+						printf("Nome antigo: %s\n", nome[iEdit]);
 						
 						printf("Digite o novo nome: ");
 						fflush(stdin);
-						fgets(nome[i_edit], 50, stdin);
+						fgets(nome[iEdit], 50, stdin);
 						
 						
 						break;
 						
 					case 3: //EMAIL
 						printf("## EDITAR UM USUÁRIO ##\n\n");
-						printf("Usuário selecionado: %s\n\n", nome[i_edit]);
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
 						
-						printf("E-mail antigo: %s\n", email[i_edit]);
+						printf("E-mail antigo: %s\n", email[iEdit]);
 						
 						printf("Digite o novo e-mail: ");
 						fflush(stdin);
-						fgets(email[i_edit], 100, stdin);
+						fgets(email[iEdit], 100, stdin);
 						break;
 						
 					case 4: //ENDEREÇO
 						printf("## EDITAR UM USUÁRIO ##\n\n");
-						printf("Usuário selecionado: %s\n\n", nome[i_edit]);
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
 						
-						printf("Endereço antigo: %s\n", endereco[i_edit]);
+						printf("Endereço antigo: %s\n", endereco[iEdit]);
 						
 						printf("Digite o novo endereço: ");
 						fflush(stdin);
-						fgets(endereco[i_edit], 50, stdin);
+						fgets(endereco[iEdit], 50, stdin);
 						
 						
 						break;
 						
 					case 5: //SEXO
 						printf("## EDITAR UM USUÁRIO ##\n\n");
-						printf("Usuário selecionado: %s\n\n", nome[i_edit]);
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
 						
-						printf("Sexo antigo: %s\n", id[i_edit]);
+						printf("Sexo antigo: %s\n", id[iEdit]);
 						
 						printf("Digite o novo sexo: ");
 						fflush(stdin);
-						fgets(sexo[i_edit], 50, stdin);
+						fgets(sexo[iEdit], 50, stdin);
 						
 						
 						break;
 						
 					case 6: //VACINA
 						printf("## EDITAR UM USUÁRIO ##\n\n");
-						printf("Usuário selecionado: %s\n\n", nome[i_edit]);
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
 						
-						printf("Status da vacina antigo: %d\n", vacina[i_edit]);
+						printf("Status da vacina antigo: %d\n", vacina[iEdit]);
 						
 						printf("Digite o novo status de vacina: ");
 						fflush(stdin);
-						scanf("%d", &vacina[i_edit]);
+						scanf("%d", &vacina[iEdit]);
 						break;
 						
 					default:
@@ -269,12 +268,12 @@ int main(){
 
 				printf("Índice(usuário) a ser deletado: ");
 				fflush(stdin);
-				int i_edit;
-				scanf("%d", &i_edit);
+				int iEdit;
+				scanf("%d", &iEdit);
 				system("cls");
 				
 				printf("## DELETAR UM USUÁRIO ##\n\n");
-				printf("Usuário selecionado: #%d\n\nID: %d\nNome: %sE-mail: %sEndereço: %sSexo: %s\nVacinou: %d\n\n", i_edit, id[i_edit], nome[i_edit], email[i_edit], endereco[i_edit], sexo[i_edit], vacina[i_edit] );
+				printf("Usuário selecionado: #%d\n\nID: %d\nNome: %sE-mail: %sEndereço: %sSexo: %s\nVacinou: %d\n\n", iEdit, id[iEdit], nome[iEdit], email[iEdit], endereco[iEdit], sexo[iEdit], vacina[iEdit] );
 				printf("##############################");
 				printf("\n\nSelecione a opção:\n");
 				printf("1. Deletar todos os dados\n2. Retornar ao menu\n\n\n");
@@ -285,12 +284,12 @@ int main(){
 				
 				switch(opc){
 					case 1:
-						id[i_edit] = 0;
-						strcpy(nome[i_edit], "");
-						strcpy(email[i_edit], "");
-						strcpy(endereco[i_edit], "");
-						strcpy(sexo[i_edit], "");
-						vacina[i_edit] = 0;
+						id[iEdit] = 0;
+						strcpy(nome[iEdit], "");
+						strcpy(email[iEdit], "");
+						strcpy(endereco[iEdit], "");
+						strcpy(sexo[iEdit], "");
+						vacina[iEdit] = 0;
 						
 						printf("\nExclusão feita com sucesso!\n\n");
 						sleep(2000);
@@ -312,12 +311,12 @@ int main(){
 			printf("## BUSCAR USUÁRIO PELO E-MAIL ##\n\n");
 			printf("Digite o email do usuário que deseja buscar: ");
 			fflush(stdin);
-			fgets(email_busca, 100, stdin);
+			fgets(emailBusca, 100, stdin);
 			
 			int i_email;
 			
 			for(i=0;i<1000;i++){
-				if(strcmp(email_busca, email[i]) == 0){
+				if(strcmp(emailBusca, email[i]) == 0){
 					i_email = i;}}
 				
 			if (i_email != -1) {
@@ -358,14 +357,14 @@ int main(){
 			
 			if(opc == 1){
 				for(i=0;i<j;i++) {
-					strcpy(nome_b[i], nome[i]);
-					strcpy(email_b[i], email[i]);
-					strcpy(endereco_b[i], endereco[i]);
-					strcpy(sexo_b[i], sexo[i]);
+					strcpy(nomeBackup[i], nome[i]);
+					strcpy(emailBackup[i], email[i]);
+					strcpy(enderecoBackup[i], endereco[i]);
+					strcpy(sexoBackup[i], sexo[i]);
 				
-					id_b[i] = id[i];
-					altura_b[i] = altura[i];
-					vacina_b[i] = vacina[i];
+					idBackup[i] = id[i];
+					alturaBackup[i] = altura[i];
+					vacinaBackup[i] = vacina[i];
 				}
 
 				printf("\nBackup feito com sucesso!\n\n");
@@ -385,14 +384,14 @@ int main(){
 			
 			if(opc == 1){
 				for(i=0;i<j;i++) {
-					strcpy(nome[i], nome_b[i]);
-					strcpy(email[i], email_b[i]);
-					strcpy(endereco[i], endereco_b[i]);
-					strcpy(sexo[i], sexo_b[i]);
+					strcpy(nome[i], nomeBackup[i]);
+					strcpy(email[i], emailBackup[i]);
+					strcpy(endereco[i], enderecoBackup[i]);
+					strcpy(sexo[i], sexoBackup[i]);
 				
-					id[i] = id_b[i];
-					altura[i] = altura_b[i];
-					vacina[i] = vacina_b[i];
+					id[i] = idBackup[i];
+					altura[i] = alturaBackup[i];
+					vacina[i] = vacinaBackup[i];
 				}
 
 				printf("\nRestauração feito com sucesso!\n\n");
