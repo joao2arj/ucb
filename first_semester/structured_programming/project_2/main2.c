@@ -11,9 +11,17 @@ typedef struct enderecoUsuario
     char cidade[30], estado[30];
 } Endereco;
 
+typedef struct enderecoUsuarioBackup
+{
+    int ruaB, cepB;
+    char cidadeB[30], estadoB[30];
+} EnderecoBackup;
+
 int i, iEmail, iEdit, j, opc = 0, id[1000], idBackup[1000], vacina[1000], vacinaBackup[1000];
-char emailBusca[100], nome[1000][50], nomeBackup[1000][50], email[1000][50], emailBackup[1000][50], sexo[1000][15], sexoBackup[1000][15], endereco[1000][100], enderecoBackup[1000][100];
+char emailBusca[100], nome[1000][50], nomeBackup[1000][50], email[1000][50], emailBackup[1000][50], sexo[1000][15], sexoBackup[1000][15];
 double altura[1000], alturaBackup[1000];
+Endereco endereco[1000];
+EnderecoBackup enderecoBackup[1000];
 
 void cadastraUsuario();
 void editaUsuario();
@@ -41,15 +49,15 @@ menu:
         goto menu;
 
     case 2:
-        // editaUsuario();
+        editaUsuario();
         goto menu;
 
     case 3:
-        // excluiUsuario();
+        excluiUsuario();
         goto menu;
 
     case 4:
-        // buscaUsuario();
+        buscaUsuario();
         goto menu;
 
     case 5:
@@ -57,11 +65,11 @@ menu:
         goto menu;
 
     case 6:
-        // backupUsuario();
+        backupUsuario();
         goto menu;
 
     case 7:
-        // restauraUsuario();
+        restauraUsuario();
         goto menu;
     }
 }
@@ -142,9 +150,27 @@ void cadastraUsuario()
         } while (strcmp(sexo[i], "Feminino") != 0 && strcmp(sexo[i], "Masculino") != 0 && strcmp(sexo[i], "Não declarar") != 0);
 
         // ENDEREÇO
-        printf("# INCLUIR UM USUÁRIO (USUÁRIO: %d, ID: %d)#\n\nEndereço: ", i + 1, id[i]);
+        printf("# INCLUIR UM USUÁRIO (USUÁRIO: %d, ID: %d)#\n\n ", i + 1, id[i]);
+        printf("\tEndereço:\n");
+        
+        printf("Digite aqui o seu CEP: ");
         fflush(stdin);
-        fgets(endereco[i], 100, stdin);
+        scanf("%d", &endereco[i].cep);
+        system("cls");
+        
+        printf("Digite aqui a sua rua: ");
+        fflush(stdin);
+        scanf("%d", &endereco[i].rua);
+        system("cls");
+        
+        printf("Digite aqui a sua cidade: ");
+        fflush(stdin);
+        fgets(endereco[i].cidade, 30, stdin);
+        system("cls");
+        
+        printf("Digite aqui o seu estado: ");
+        fflush(stdin);
+        fgets(endereco[i].estado, 30, stdin);
         system("cls");
 
         // ALTURA
@@ -188,11 +214,218 @@ void cadastraUsuario()
     }
 }
 
-// void editaUsuario(){}
+ void editaUsuario(){
+ 
+ //#################### EDITAR #################### 
 
-// void excluiUsuario(){}
+			printf("## EDITAR UM USUÁRIO ##\n\n");
+			printf("1. Editar um usuário\n0. Retornar ao menu\n\nDigite a opção desejada: ");
+			fflush(stdin);
+			int opc;
+			fflush(stdin);
+			scanf("%d", &opc);
+			system("cls");
+			
+			if(opc == 1){
+				
+				printf("## EDITAR UM USUÁRIO ##\n\n");
+				printf("Escolha o índice do usuário que será editado:\n\n");
+				printf("Índice\tID\tNome\n");
+				for(i=0;i<j;i++) {
+					printf("%d\t%d\t%s", i, id[i], nome[i]);
+				}
+				
+				int iEdit;
 
-// void buscaUsuario(){}
+				printf("\nÍndice a ser editado: ");
+				fflush(stdin);
+				scanf("%d", &iEdit);
+				system("cls");
+				
+				printf("## EDITAR UM USUÁRIO ##\n\n");
+				printf("Usuário selecionado: #%d\n\nID: %d\nNome: %sE-mail: %sEndereço: %sSexo: %s\nVacinou: %d\n\n", iEdit, id[iEdit], nome[iEdit], email[iEdit], endereco[iEdit], sexo[iEdit], vacina[iEdit] );
+				printf("##############################");
+				printf("\n\nSelecione o parâmetro a ser editado:\n");
+				printf("1. ID\n2. Nome\n3. E-mail\n4. Endereço\n5. Sexo\n6. Status de vacinação\n\n");
+				printf("Parâmetro desejado: ");
+				fflush(stdin);
+				scanf("%d", &opc);
+				system("cls");
+				
+				switch(opc){
+					case 1: //ID
+						printf("## EDITAR UM USUÁRIO ##\n\n");
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
+						
+						printf("ID antigo: %d\n", id[iEdit]);
+						
+						printf("Digite o novo ID: ");
+						fflush(stdin);
+						scanf("%d", &id[iEdit]);
+						
+						
+						break;
+						
+					case 2: //NOME
+						printf("## EDITAR UM USUÁRIO ##\n\n");
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
+						
+						printf("Nome antigo: %s\n", nome[iEdit]);
+						
+						printf("Digite o novo nome: ");
+						fflush(stdin);
+						fgets(nome[iEdit], 50, stdin);
+						
+						
+						break;
+						
+					case 3: //EMAIL
+						printf("## EDITAR UM USUÁRIO ##\n\n");
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
+						
+						printf("E-mail antigo: %s\n", email[iEdit]);
+						
+						printf("Digite o novo e-mail: ");
+						fflush(stdin);
+						fgets(email[iEdit], 100, stdin);
+						break;
+						
+					case 4: //ENDEREÇO
+						printf("## EDITAR UM USUÁRIO ##\n\n");
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
+						
+						printf("Endereço antigo:\n-CEP: %d\n-Rua: %d\n-Cidade: %s\n-Estado: %s", endereco[iEdit].cep, endereco[iEdit].rua, endereco[iEdit].cidade, endereco[iEdit].estado);
+						
+						printf("Digite o novo cep do endereço: ");
+						fflush(stdin);
+						scanf("%d", &endereco[iEdit].cep);
+						
+						printf("Digite a nova rua do endereço: ");
+						fflush(stdin);
+						scanf("%d", &endereco[iEdit].rua);
+						
+						printf("Digite o novo cep do endereço: ");
+						fflush(stdin);
+						fgets(endereco[iEdit].cidade, 30, stdin);
+						
+						printf("Digite o novo cep do endereço: ");
+						fflush(stdin);
+						fgets(endereco[iEdit].estado, 30, stdin);
+						
+						
+						break;
+						
+					case 5: //SEXO
+						printf("## EDITAR UM USUÁRIO ##\n\n");
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
+						
+						printf("Sexo antigo: %s\n", id[iEdit]);
+						
+						printf("Digite o novo sexo: ");
+						fflush(stdin);
+						fgets(sexo[iEdit], 50, stdin);
+						
+						
+						break;
+						
+					case 6: //VACINA
+						printf("## EDITAR UM USUÁRIO ##\n\n");
+						printf("Usuário selecionado: %s\n\n", nome[iEdit]);
+						
+						printf("Status da vacina antigo: %d\n", vacina[iEdit]);
+						
+						printf("Digite o novo status de vacina: ");
+						fflush(stdin);
+						scanf("%d", &vacina[iEdit]);
+						break;
+						
+					default:
+						printf("AVISO: Opção inválida!\n");
+						}
+				
+				printf("\n## Usuário editado com sucesso!##\n\n");	
+				Sleep(3000);
+				system("cls");
+				
+			} 
+ 
+ }
+	
+
+ void excluiUsuario(){
+ 
+  printf("## DELETAR UM USUÁRIO ##\n\n");
+	printf("1. Deletar um usuário\n0. Retornar ao menu\n\nDigite a opção desejada: ");
+	fflush(stdin);
+	fflush(stdin);
+	scanf("%d", &opc);
+	system("cls");
+    if(opc == 1){
+        
+	printf("## DELETAR UM USUÁRIO ##\n\n");
+	printf("Escolha o índice do usuário que será deletado:\n\n");
+	printf("Índice\tID\tNome\n");
+
+	for(i=0;i<j;i++) {
+	printf("%d\t%d\t%s", i, id[i], nome[i]);
+	}
+    printf("Índice(usuário) a ser deletado: ");
+	fflush(stdin);
+	scanf("%d", &iEdit);
+	system("cls");
+	printf("## DELETAR UM USUÁRIO ##\n\n");
+	printf("Usuário selecionado: #%d\n\nID: %d\nNome: %sE-mail: %sSexo: %s\nVacinou: %d\n\n", iEdit, id[iEdit], nome[iEdit], email[iEdit], sexo[iEdit], vacina[iEdit] );
+	printf("##############################");
+	printf("\n\nSelecione a opção:\n");
+	printf("1. Deletar todos os dados\n2. Retornar ao menu\n\n\n");
+	printf("Opção: ");
+	fflush(stdin);
+	scanf("%d", &opc);
+	system("cls");
+
+            switch (opc){
+            case 1:
+            strcpy(nome[iEdit], "");
+			strcpy(email[iEdit], "");
+			strcpy(endereco[iEdit].cidade, "");
+			strcpy(endereco[iEdit].estado, "");
+			strcpy(sexo[iEdit], "");
+            vacina[iEdit] = 0;
+            endereco[i].cep = 0;
+            endereco[i].rua = 0;
+            printf("\nExclusão feita com sucesso!\n\n");
+                break;
+            case 2:
+            printf("Você sera enviado ao menu");
+            break;
+
+            default:
+            printf("AVISO: Opção inválida!\n");
+                break;
+            }
+        }
+ }
+
+ void buscaUsuario()
+{
+	printf("## BUSCAR USUÁRIO PELO E-MAIL ##\n\n");
+			printf("Digite o email do usuário que deseja buscar: ");
+			fflush(stdin);
+			fgets(emailBusca, 100, stdin);
+			
+			int i_email;
+			
+			for(i=0;i<1000;i++){
+				if(strcmp(emailBusca, email[i]) == 0){
+					i_email = i;}}
+				
+			if (i_email != -1) {
+                printf("\nId: %d", id[i_email]);
+                printf("\nNome: %s", nome[i_email]); } else if(i_email = 0) {printf("\nUsuário não localizado.\n");}
+                printf("Em cinco segundos você será encaminhado ao menu principal");
+                system("cls");
+  
+}
 
 void exibeUsuario()
 {
@@ -216,8 +449,61 @@ void exibeUsuario()
 
     printf("Digite 'OK' para prosseguir: ");
     scanf("%d", &id);
+    system("cls");
 }
 
-// void backupUsuario(){}
+ void backupUsuario()
+{
+	printf("## BACKUP DE USUÁRIOS CADASTRADOS ##\n\n");
+			printf("1. Fazer backup\n0. Retornar ao menu\n\nDigite a opção desejada: ");
+			fflush(stdin);
+			scanf("%d", &opc);
+			
+			if(opc == 1){
+				for(i=0;i<j;i++) {
+					strcpy(nomeBackup[i], nome[i]);
+					strcpy(emailBackup[i], email[i]);
+					strcpy(enderecoBackup[i].cidadeB, endereco[i].cidade);
+					strcpy(enderecoBackup[i].estadoB, endereco[i].estado);
+					strcpy(sexoBackup[i], sexo[i]);
+					
+					endereco[i].cep = enderecoBackup[i].cepB;
+					endereco[i].rua = enderecoBackup[i].ruaB;
+					idBackup[i] = id[i];
+					alturaBackup[i] = altura[i];
+					vacinaBackup[i] = vacina[i];
+				}
 
-// void restauraUsuario(){}
+				printf("\nBackup feito com sucesso!\n\n");
+				Sleep(3000);
+				system("cls");
+	}
+}
+ void restauraUsuario()
+{
+	printf("## RESTAURAÇÃO DE DADOS ##\n\n");
+			printf("1. Restaurar dados\n0. Retornar ao menu\n\nDigite a opção desejada: ");
+			fflush(stdin);
+			scanf("%d", &opc);
+			
+			if(opc == 1){
+				for(i=0;i<j;i++) {
+					strcpy(nome[i], nomeBackup[i]);
+					strcpy(email[i], emailBackup[i]);
+					strcpy(endereco[i].cidade, enderecoBackup[i].cidadeB);
+					strcpy(endereco[i].estado, enderecoBackup[i].estadoB);
+					strcpy(sexo[i], sexoBackup[i]);
+					
+					endereco[i].cep = enderecoBackup[i].cepB;
+					endereco[i].rua = enderecoBackup[i].ruaB;
+					id[i] = idBackup[i];
+					altura[i] = alturaBackup[i];
+					vacina[i] = vacinaBackup[i];
+				}
+
+				printf("\nRestauração feito com sucesso!\n\n");
+				Sleep(3000);
+				system("cls");
+	}
+}				
+	
