@@ -1,20 +1,31 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-/* Fa√ßa um algoritmo que leia a idade de at√© 100 pessoas e apresente a m√©dia entre todas, al√©m
-de identificar a mais velha e a posi√ß√£o em que ela se encontra no vetor. A idade mais velha
-pode aparecer em mais de uma posi√ß√£o. */
+//Leia quatro valores inteiros A, B, C e D. A seguir, calcule e mostre a diferenÁa do
+//produto de A e B pelo produto de C e D segundo a fÛrmula: DIFERENCA = (A * B -
+//C * D). Apresente o resultado da seguinte forma:
+//DIFERENCA = (ìvalor de Aî * ìvalor de Bî - ììvalor de Cî * ììvalor de Dî)
+//DIFERENCA = ìvaor de DIFERENCA
 
-int main() {
+int main(){
+	int a, b, c, d, diferenca;
 	
-	int idade[100], pessoas, i;
+	printf("Digite o primeiro valor: ");
+	scanf("%d", &a);
 	
-	prinft("Digite a quantidade de pessoas:\n");
-	scanf("%d", &pessoas);
+	printf("Digite o segundo valor: ");
+	scanf("%d", &b);
 	
-	for(i=1;i<pessoas;i++){
-		printf("Digite a idade da pessoa %d:\n", i);
-		scanf("%d", &idade[i]);}
+	printf("Digite o terceiro valor: ");
+	scanf("%d", &c);
+	
+	printf("Digite o quarto valor: ");
+	scanf("%d", &d);
+	
+	diferenca = (a*b) - (c*d);
+	
+	printf("%d * %d - %d * %d", a, b, c, d);
+	printf("\nDiferenca: %d", diferenca);
+	
 	
 	return 0;
 }
